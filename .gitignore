@@ -15,3 +15,8 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+# Angular / Frontend
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.angular/cache/
+/frontend/npm-debug.log

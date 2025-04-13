@@ -88,6 +88,73 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.12.1</version>
+				<configuration>
+					<workingDirectory>frontend</workingDirectory>
+					<installDirectory>target</installDirectory>
+				</configuration>
+				<executions>
+					<!-- Installa Node e npm -->
+					<execution>
+						<id>install-node-and-npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<configuration>
+							<nodeVersion>v18.16.0</nodeVersion>
+							<npmVersion>9.5.1</npmVersion>
+						</configuration>
+					</execution>
+
+					<!-- Installa dipendenze npm -->
+					<execution>
+						<id>npm-install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+
+					<!-- Compila il progetto Angular -->
+					<execution>
+						<id>npm-build</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Copia i file compilati del frontend nella directory target di Spring Boot -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/classes/static</outputDirectory>
+							<resources>
+								<resource>
+									<directory>frontend/dist/frontend</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<repositories>
