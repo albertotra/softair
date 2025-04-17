@@ -12,4 +12,5 @@ public interface TorneoRepository extends JpaRepository<Torneo, Integer> {
     List<Torneo> findByNomeContaining(String nome);
     List<Torneo> findByDataInizioAfter(LocalDateTime data);
     List<Torneo> findByLuogoContaining(String luogo);
+    List<Torneo> findAllByOrderByDataInizioDesc();
 }

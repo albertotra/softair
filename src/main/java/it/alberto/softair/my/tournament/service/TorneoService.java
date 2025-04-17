@@ -1,5 +1,7 @@
 package it.alberto.softair.my.tournament.service;
 
+import it.alberto.softair.my.tournament.dto.TorneoDto;
+import it.alberto.softair.my.tournament.dto.mapper.TorneoMapper;
 import it.alberto.softair.my.tournament.entity.Torneo;
 import it.alberto.softair.my.tournament.repository.TorneoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,11 @@ public class TorneoService {
 
     @Autowired
     private TorneoRepository torneoRepository;
+    @Autowired
+    private TorneoMapper torneoMapper;
 
-    public List<Torneo> findAll() {
-        return torneoRepository.findAll();
+    public List<TorneoDto> findAll() {
+        return torneoRepository.findAllByOrderByDataInizioDesc().stream().map(torneoMapper::toDto).toList();
     }
 
     public Optional<Torneo> findById(Integer id) {

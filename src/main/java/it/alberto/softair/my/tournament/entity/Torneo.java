@@ -1,5 +1,7 @@
 package it.alberto.softair.my.tournament.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -38,7 +40,10 @@ public class Torneo {
     @Lob
     private byte[] book;
 
-    @OneToMany(mappedBy = "torneo")
-    private List<CoordinateTorneo> coordinateTornei;
+    @Column(name="squadra_organizzatrice")
+    private String squadraOrganizzatrice;
 
+    private String parcheggio;
+
+    private String fob;
 }

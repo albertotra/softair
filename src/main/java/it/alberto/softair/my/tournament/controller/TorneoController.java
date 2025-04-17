@@ -1,5 +1,6 @@
 package it.alberto.softair.my.tournament.controller;
 
+import it.alberto.softair.my.tournament.dto.TorneoDto;
 import it.alberto.softair.my.tournament.entity.Torneo;
 import it.alberto.softair.my.tournament.service.TorneoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class TorneoController {
     private TorneoService torneoService;
 
     @GetMapping
-    public ResponseEntity<List<Torneo>> getAllTornei() {
-        List<Torneo> tornei = torneoService.findAll();
+    public ResponseEntity<List<TorneoDto>> getAllTornei() {
+        List<TorneoDto> tornei = torneoService.findAll();
         return new ResponseEntity<>(tornei, HttpStatus.OK);
     }
 

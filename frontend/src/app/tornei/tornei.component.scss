@@ -1,0 +1,22 @@
+#map-container {
+    height: 400px;
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .map-controls {
+    margin-top: 10px;
+    text-align: right;
+  }
+  
+  table a {
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  table a:hover {
+    text-decoration: none;
+  }

@@ -21,7 +21,4 @@ public class Coordinate {
     private String longitudine;
     private String nome;
     private String descrizione;
-
-    @OneToMany(mappedBy = "coordinate")
-    private List<CoordinateTorneo> coordinateTornei;
 }

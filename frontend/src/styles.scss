@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+body,
+mat-toolbar {
+    font-family: 'Caskaydia Cove Nerd Font', monospace;
+    background-color: #1a1f1a;
+    color: #d4dccc;
+}
+
+.map-dialog-container .mat-mdc-dialog-container {
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+.map-dialog-container .mat-mdc-dialog-surface {
+    overflow: hidden !important;
+}

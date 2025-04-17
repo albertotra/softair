@@ -1,0 +1,24 @@
+<table class="table table-dark table-borderless border-secondary">
+    <thead class="thead">
+        <tr class="border-secondary">
+            <th>Id</th>
+            <th>Nome torneo</th>
+            <th>Data torneo</th>
+            <th>Luogo torneo</th>
+            <th>Squadra organizzatrice</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let torneo of tornei" class="border-top border-secondary">
+            <td>{{ torneo.id }}</td>
+            <td>{{ torneo.nome }}</td>
+            <td>{{ torneo.dataInizio }}</td>
+            <td>
+                <a href="javascript:void(0)" (click)="apriMappaDialog(torneo.luogo, torneo.parcheggio, torneo.fob)">
+                    {{ torneo.luogo }}
+                </a>
+            </td>
+            <td>{{ torneo.squadraOrganizzatrice }}</td>
+        </tr>
+    </tbody>
+</table>
