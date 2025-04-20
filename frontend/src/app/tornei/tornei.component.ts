@@ -3,10 +3,12 @@ import { ApiService } from '../services/api.service';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MapDialogComponent } from '../map-dialog/map-dialog.component';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-tornei',
-  imports: [CommonModule],
+  imports: [CommonModule, NgbTooltipModule, RouterLink],
   templateUrl: './tornei.component.html',
   styleUrl: './tornei.component.scss'
 })

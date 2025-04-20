@@ -1,11 +1,16 @@
 <div class="modal-header">
-    <h4 class="modal-title">Mappa - {{luogoNome}}</h4>
+    <h4 class="modal-title">Posizioni utili - {{luogoNome}}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <!-- Contenuto della tua mappa qui -->
-    <p>Parcheggio: {{parcheggio}}</p>
-    <p>FOB: {{fob}}</p>
+    <div class="row gx-2">
+      <div class="col-6">
+        <a href=`{{parcheggio}}` target="_blank" class="btn btn-dark w-100">Parcheggio</a>
+      </div>
+      <div class="col-6">
+        <a href=`{{fob}}` target="_blank" class="btn btn-dark w-100">F.O.B.</a>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close('Close click')">Chiudi</button>

@@ -6,6 +6,7 @@
             <th>Data torneo</th>
             <th>Luogo torneo</th>
             <th>Squadra organizzatrice</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +20,12 @@
                 </a>
             </td>
             <td>{{ torneo.squadraOrganizzatrice }}</td>
+            <td>
+                <a [routerLink]="['/dettaglio-torneo', torneo.id]" class="btn btn-outline-secondary" ngbTooltip="Dettaglio torneo"
+                    placement="bottom">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </td>
         </tr>
     </tbody>
 </table>

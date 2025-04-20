@@ -46,4 +46,7 @@ public class Torneo {
     private String parcheggio;
 
     private String fob;
+
+    @OneToMany(mappedBy = "torneo")
+    private List<Punteggio> punteggi;
 }

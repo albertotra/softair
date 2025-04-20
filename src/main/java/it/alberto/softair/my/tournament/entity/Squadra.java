@@ -18,9 +18,6 @@ public class Squadra {
 
     private String nome;
 
-    @Column(name = "num_operatori")
-    private Integer numOperatori;
-
     private String comitato;
 
 }

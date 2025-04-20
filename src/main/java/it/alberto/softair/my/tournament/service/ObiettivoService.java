@@ -18,19 +18,8 @@ public class ObiettivoService {
         return obiettivoRepository.findAll();
     }
 
-    public Optional<Obiettivo> findById(Integer id) {
-        return obiettivoRepository.findById(id);
+    public List<Obiettivo> findByIdTorneo(Integer idTorneo) {
+        return obiettivoRepository.findByIdTorneo(idTorneo);
     }
 
-    public List<Obiettivo> findByFaseE(Boolean faseE) {
-        return obiettivoRepository.findByFaseE(faseE);
-    }
-
-    public Obiettivo save(Obiettivo obiettivo) {
-        return obiettivoRepository.save(obiettivo);
-    }
-
-    public void deleteById(Integer id) {
-        obiettivoRepository.deleteById(id);
-    }
 }
