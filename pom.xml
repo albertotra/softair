@@ -159,6 +159,7 @@
 							<resources>
 								<resource>
 									<directory>frontend/dist/frontend</directory>
+									<directory>frontend/dist/frontend/browser</directory>
 								</resource>
 							</resources>
 						</configuration>

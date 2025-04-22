@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../services/api.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-punteggi',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './punteggi.component.html',
   styleUrls: ['./punteggi.component.scss']
 })

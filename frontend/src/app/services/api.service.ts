@@ -10,6 +10,7 @@ export class ApiService {
   private torneoUrl = this.baseUrl + '/torneo'; 
   private torneoSquadraUrl = this.baseUrl + '/torneo-squadra';
   private obiettivoUrl = this.baseUrl + '/obiettivo';
+  private punteggioUrl = this.baseUrl + '/punteggio';
   constructor(private http: HttpClient) { }
 
   getAllTornei(): Observable<any> {
@@ -22,6 +23,10 @@ export class ApiService {
 
   getObiettivoByIdTorneo(idTorneo: number): Observable<any[]>{
     return this.http.get<any[]>(`${this.obiettivoUrl}/${idTorneo}`);
+  }
+
+  getPunteggioByIdPunteggio(idPunteggio: number): Observable<any>{
+    return this.http.get<any>(`${this.punteggioUrl}/${idPunteggio}`);
   }
   
 }

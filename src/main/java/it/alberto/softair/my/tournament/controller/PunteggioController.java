@@ -2,6 +2,9 @@ package it.alberto.softair.my.tournament.controller;
 
 import it.alberto.softair.my.tournament.dto.DettaglioTorneoSquadraDto;
 import it.alberto.softair.my.tournament.entity.Obiettivo;
+import it.alberto.softair.my.tournament.entity.Punteggio;
+import it.alberto.softair.my.tournament.entity.PunteggioE;
+import it.alberto.softair.my.tournament.entity.PunteggioSquadra;
 import it.alberto.softair.my.tournament.service.PunteggioService;
 import it.alberto.softair.my.tournament.service.TorneoSquadraService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +24,9 @@ public class PunteggioController {
     @Autowired
     private PunteggioService punteggioService;
 
-    @GetMapping("/{idTorneo}/{idObiettivo}")
-    public ResponseEntity<List<Obiettivo>> getPunteggioByIdTorneoAndIdObiettivo(@PathVariable Integer idTorneo,
-                                                                         @PathVariable Integer idObiettivo) {
-        List<Obiettivo> torneoSquadraList = punteggioService.getByTorneoId(idTorneo);
-        return new ResponseEntity<>(torneoSquadraList, HttpStatus.OK);
+    @GetMapping("/{idPunteggio}")
+    public ResponseEntity<Punteggio> getPunteggioById(@PathVariable Integer idPunteggio) {
+        Punteggio punteggio = punteggioService.getById(idPunteggio);
+        return new ResponseEntity<>(punteggio, HttpStatus.OK);
     }
 }

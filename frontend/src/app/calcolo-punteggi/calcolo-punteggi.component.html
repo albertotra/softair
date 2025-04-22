@@ -1,1 +1,28 @@
-<p>calcolo-punteggi works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div formArrayName="rows">
+      <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i" class="row-container">
+        <div class="field-group">
+          <select formControlName="selectValue">
+            <option [value]="''">Seleziona un'opzione</option>
+            <option *ngFor="let option of options" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+          
+          <input type="text" formControlName="inputValue" placeholder="Inserisci un valore">
+          
+          <button type="button" class="remove-btn" (click)="removeRow(i)" *ngIf="rows.length > 1">
+            <span>-</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="buttons-container">
+      <button type="button" class="add-btn" (click)="addRow()">
+        <span>+</span> Aggiungi campo
+      </button>
+      
+      <button type="submit" class="submit-btn">Invia</button>
+    </div>
+  </form>
