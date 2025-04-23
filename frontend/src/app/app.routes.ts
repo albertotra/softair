@@ -18,7 +18,7 @@ export const routes: Routes = [
         loadComponent: () => import('./punteggi/punteggi.component').then(m => m.PunteggiComponent)
     },
     {
-        path: 'calcolo-punteggi/:idPunteggio/:idSquadra',
+        path: 'calcolo-punteggi/:idPunteggio/:idSquadra/:idObiettivo',
         loadComponent: () => import('./calcolo-punteggi/calcolo-punteggi.component').then(m => m.CalcoloPunteggiComponent)
     }
 ];

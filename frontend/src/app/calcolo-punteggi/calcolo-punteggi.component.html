@@ -1,28 +1,202 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div formArrayName="rows">
-      <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i" class="row-container">
-        <div class="field-group">
-          <select formControlName="selectValue">
-            <option [value]="''">Seleziona un'opzione</option>
-            <option *ngFor="let option of options" [value]="option.value">
-              {{ option.label }}
-            </option>
-          </select>
-          
-          <input type="text" formControlName="inputValue" placeholder="Inserisci un valore">
-          
-          <button type="button" class="remove-btn" (click)="removeRow(i)" *ngIf="rows.length > 1">
-            <span>-</span>
-          </button>
-        </div>
+  <h1>Team: {{squadra.nome}}</h1>
+  <h2>Obiettivo <span class="text-danger">{{obiettivo.nome}} - Tipologia {{ obiettivo.tipologia }} <span *ngIf="obiettivo.faseE"> + E</span></span></h2>
+  <h4 class="mb-3">Durata: {{obiettivo.durata}} min.</h4>
+  <hr>
+  <div class="row mb-3">
+    <!-- Inizio Obj -->
+    <div class="col-md-4">
+      <label for="inizioObj" class="form-label">Inizio Obj</label>
+      <input
+        type="datetime-local"
+        class="form-control"
+        id="inizioObj"
+        formControlName="inizioObj"
+      />
+    </div>
+
+    <!-- Fine Obj -->
+    <div class="col-md-4">
+      <label for="fineObj" class="form-label">Fine Obj</label>
+      <input
+        type="datetime-local"
+        class="form-control"
+        id="fineObj"
+        formControlName="fineObj"
+      />
+    </div>
+
+    <!-- Minuti Impiegati -->
+    <div class="col-md-4">
+      <label for="minuti" class="form-label">Minuti impiegati</label>
+      <input
+        type="number"
+        class="form-control"
+        id="minuti"
+        formControlName="minutiImpiegati"
+        min="1"
+        max="30"
+      />
+      <div class="form-text">Valori da 1 a 30 minuti</div>
+      <div *ngIf="form.get('minutiImpiegati')?.invalid && form.get('minutiImpiegati')?.touched" class="text-danger mt-1">
+        Inserisci un valore tra 1 e 30 (obbligatorio).
       </div>
     </div>
-    
-    <div class="buttons-container">
-      <button type="button" class="add-btn" (click)="addRow()">
-        <span>+</span> Aggiungi campo
-      </button>
-      
-      <button type="submit" class="submit-btn">Invia</button>
+  </div>
+
+  <div *ngIf="punteggio.ribelli" class="mb-3">
+    <label for="numeroRibelli" class="form-label">Numero ribelli</label>
+    <input
+      type="number"
+      class="form-control"
+      id="numeroRibelli"
+      formControlName="numeroRibelli"
+      min="0"
+      max="12"
+    />
+    <div *ngIf="form.get('numeroRibelli')?.invalid && form.get('numeroRibelli')?.touched" class="text-danger mt-1">
+      Inserisci un valore tra 0 e 12 (obbligatorio).
     </div>
-  </form>
+  </div>
+  
+  <div *ngIf="punteggio.difensori" class="mb-3">
+    <label for="numeroDifensori" class="form-label">Numero difensori</label>
+    <input
+      type="number"
+      class="form-control"
+      id="numeroDifensori"
+      formControlName="numeroDifensori"
+      min="0"
+      max="5"
+    />
+    <div *ngIf="form.get('numeroDifensori')?.invalid && form.get('numeroDifensori')?.touched" class="text-danger mt-1">
+      Inserisci un valore tra 0 e 5 (obbligatorio).
+    </div>
+  </div>
+  
+  <div *ngIf="punteggio.civili" class="mb-3">
+    <label for="numeroCivili" class="form-label">Numero civili</label>
+    <input
+      type="number"
+      class="form-control"
+      id="numeroCivili"
+      formControlName="numeroCivili"
+      min="0"
+      max="5"
+    />
+    <div *ngIf="form.get('numeroCivili')?.invalid && form.get('numeroCivili')?.touched" class="text-danger mt-1">
+      Inserisci un valore tra 0 e 5 (obbligatorio).
+    </div>
+  </div>
+  
+  <div *ngIf="punteggio.vip" class="mb-3">
+    <label for="numeroVip" class="form-label">Numero VIP</label>
+    <input
+      type="number"
+      class="form-control"
+      id="numeroVip"
+      formControlName="numeroVip"
+      min="0"
+      max="5"
+    />
+    <div *ngIf="form.get('numeroVip')?.invalid && form.get('numeroVip')?.touched" class="text-danger mt-1">
+      Inserisci un valore tra 0 e 5 (obbligatorio).
+    </div>
+  </div>
+  
+  <h4>Fase E</h4>
+  <div formArrayName="punteggiE">
+    <div *ngFor="let punteggioEControl of punteggiE.controls; let i = index" [formGroupName]="i" class="mb-3">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [id]="'faseE_' + i"
+          formControlName="selezionato"
+        />
+        <label class="form-check-label" [for]="'faseE_' + i">
+          {{ punteggioEControl.get('descrizione')?.value }} - {{ punteggioEControl.get('valore')?.value }}
+        </label>
+      </div>
+    </div>
+  </div>
+  
+  <hr>
+  <div class="mb-3">
+    <label for="contestazione" class="form-label">Inserisci eventuale contestazione</label>
+    <textarea
+      id="contestazione"
+      class="form-control"
+      formControlName="contestazione"
+      rows="5"
+      maxlength="500"
+      placeholder="Scrivi qualcosa..."
+    ></textarea>
+    <div class="form-text text-end">
+      {{ form.get('contestazione')?.value?.length || 0 }}/500 caratteri
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="note" class="form-label">Inserisci eventuali note</label>
+    <textarea
+      id="note"
+      class="form-control"
+      formControlName="note"
+      rows="5"
+      maxlength="500"
+      placeholder="Scrivi qualcosa..."
+    ></textarea>
+    <div class="form-text text-end">
+      {{ form.get('note')?.value?.length || 0 }}/500 caratteri
+    </div>
+  </div>
+
+  <h4>Eventuali punteggi negativi</h4>
+  <hr>
+  <div class="alert alert-danger" role="alert">
+    ATTENZIONE!!! Spuntando il campo Fuori finestra verra detratto il punteggio massimo raggiungibile dell'intero obiettivo
+  </div>
+  <div class="form-check mb-3">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      id="fuoriFinestra"
+      formControlName="fuoriFinestra"
+    />
+    <label class="form-check-label" for="fuoriFinestra">
+      Fuori finestra
+    </label>
+  </div>
+
+  <div class="alert alert-info" role="alert">
+    Nel caso in cui la squadra abbia conseguito dei punteggi negativi all'interno dell'obiettivo, si prega di cliccare sul bottone "Inserisci un valore", selezionare la penalit&agrave; e inserire il valore da detrarre
+  </div>
+
+  <div formArrayName="penalita">
+    <div *ngFor="let row of penalita.controls; let i = index" [formGroupName]="i" class="row-container">
+      <div class="field-group">
+        <select formControlName="selectValue">
+          <option [value]="''">Seleziona un'opzione</option>
+          <option *ngFor="let option of options" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+
+        <input type="text" formControlName="inputValue" placeholder="Inserisci un valore">
+
+        <button type="button" class="remove-btn" (click)="removeRow(i)" *ngIf="penalita.length > 1">
+          <span>-</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="buttons-container mt-3">
+    <button type="button" class="add-btn" (click)="addRow()">
+      <span>+</span> Aggiungi campo
+    </button>
+
+    <button type="submit" class="submit-btn" [disabled]="form.invalid">Invia</button>
+  </div>
+</form>

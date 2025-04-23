@@ -23,10 +23,16 @@ public class ObiettivoController {
         return new ResponseEntity<>(obiettivi, HttpStatus.OK);
     }
 
-    @GetMapping("/{idTorneo}")
+    @GetMapping("/torneo/{idTorneo}")
     public ResponseEntity<List<Obiettivo>> findByIdTorneo(@PathVariable Integer idTorneo) {
         List<Obiettivo> obiettivi = obiettivoService.findByIdTorneo(idTorneo);
         return new ResponseEntity<>(obiettivi, HttpStatus.OK);
+    }
+
+    @GetMapping("/{idObiettivo}")
+    public ResponseEntity<Obiettivo> findByIdObiettivo(@PathVariable Integer idObiettivo) {
+        Obiettivo obiettivo = obiettivoService.findByIdObiettivo(idObiettivo);
+        return new ResponseEntity<>(obiettivo, HttpStatus.OK);
     }
 
 }

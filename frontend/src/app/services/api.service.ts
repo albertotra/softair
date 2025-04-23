@@ -11,6 +11,7 @@ export class ApiService {
   private torneoSquadraUrl = this.baseUrl + '/torneo-squadra';
   private obiettivoUrl = this.baseUrl + '/obiettivo';
   private punteggioUrl = this.baseUrl + '/punteggio';
+  private squadraUrl = this.baseUrl + '/squadra';
   constructor(private http: HttpClient) { }
 
   getAllTornei(): Observable<any> {
@@ -21,12 +22,20 @@ export class ApiService {
     return this.http.get<any[]>(`${this.torneoSquadraUrl}/${idTorneo}`);
   }
 
-  getObiettivoByIdTorneo(idTorneo: number): Observable<any[]>{
-    return this.http.get<any[]>(`${this.obiettivoUrl}/${idTorneo}`);
+  getObiettiviByIdTorneo(idTorneo: number): Observable<any[]>{
+    return this.http.get<any[]>(`${this.obiettivoUrl}/torneo/${idTorneo}`);
   }
 
   getPunteggioByIdPunteggio(idPunteggio: number): Observable<any>{
     return this.http.get<any>(`${this.punteggioUrl}/${idPunteggio}`);
+  }
+
+  getObiettivoByIdObiettivo(idObiettivo: number): Observable<any[]>{
+    return this.http.get<any[]>(`${this.obiettivoUrl}/${idObiettivo}`);
+  }
+
+  getSquadraById(id: number): Observable<any[]>{
+    return this.http.get<any[]>(`${this.squadraUrl}/${id}`);
   }
   
 }

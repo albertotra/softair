@@ -22,4 +22,13 @@ public class ObiettivoService {
         return obiettivoRepository.findByIdTorneo(idTorneo);
     }
 
+    public Obiettivo findByIdObiettivo(Integer idObiettivo) {
+        Optional<Obiettivo> obiettivo = obiettivoRepository.findById(idObiettivo);
+        if (obiettivo.isPresent()) {
+            return obiettivo.get();
+        } else {
+            return null;
+        }
+    }
+
 }

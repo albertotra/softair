@@ -32,7 +32,7 @@ export class PunteggiComponent implements OnInit{
 
   caricaPunteggi(idTorneo: number, idSquadra: number): any {
 
-    this.service.getObiettivoByIdTorneo(idTorneo).subscribe({
+    this.service.getObiettiviByIdTorneo(idTorneo).subscribe({
       next: (result) => {
         this.obiettivi = result;
       }
