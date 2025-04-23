@@ -59,7 +59,6 @@ export class CalcoloPunteggiComponent implements OnInit {
       numeroRibelli: [null, [Validators.min(0), Validators.max(12)]],
       numeroDifensori: [null, [Validators.min(0), Validators.max(5)]],
       numeroCivili: [null, [Validators.min(0), Validators.max(5)]],
-      numeroVip: [null, [Validators.min(0), Validators.max(5)]],
       contestazione: ['', [Validators.maxLength(500)]],
       note: ['', [Validators.maxLength(500)]],
       fuoriFinestra: [false],

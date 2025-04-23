@@ -89,21 +89,6 @@
     </div>
   </div>
   
-  <div *ngIf="punteggio.vip" class="mb-3">
-    <label for="numeroVip" class="form-label">Numero VIP</label>
-    <input
-      type="number"
-      class="form-control"
-      id="numeroVip"
-      formControlName="numeroVip"
-      min="0"
-      max="5"
-    />
-    <div *ngIf="form.get('numeroVip')?.invalid && form.get('numeroVip')?.touched" class="text-danger mt-1">
-      Inserisci un valore tra 0 e 5 (obbligatorio).
-    </div>
-  </div>
-  
   <h4>Fase E</h4>
   <div formArrayName="punteggiE">
     <div *ngFor="let punteggioEControl of punteggiE.controls; let i = index" [formGroupName]="i" class="mb-3">
