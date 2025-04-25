@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -31,6 +32,9 @@ public class PunteggioService {
     @Autowired
     private PunteggioSquadraDettaglioRepository punteggioSquadraDettaglioRepository;
 
+    @Autowired
+    private ClassificaRepository classificaRepository;
+
     public List<Obiettivo> getByTorneoId(Integer idTorneo) {
         return punteggioRepository.findByTorneo_id(idTorneo);
     }
@@ -48,6 +52,7 @@ public class PunteggioService {
         response.setIdSquadra(dto.getIdSquadra());
         response.setIdTorneo(punteggio.get().getTorneo().getId());
 
+        Optional<Squadra> squadraOptional = squadraRepository.findById(dto.getIdSquadra());
         if (punteggioSquadraSaved == null) {
             Integer punteggioFinale = 0;
             if (dto.isFuoriFinestra()) {
@@ -56,12 +61,18 @@ public class PunteggioService {
                     punteggioFinale -= punteggioE.getValore();
                 }
 
+                if (punteggioEntity.getDifensori()) {
+                    punteggioFinale -= punteggioEntity.getNumeroDifensori() * 40;
+                }
+                if (punteggioEntity.getRibelli()) {
+                    punteggioFinale -= punteggioEntity.getNumeroRibelli() * 30;
+                }
+
                 PunteggioSquadra punteggioSquadra = new PunteggioSquadra();
                 punteggioSquadra.setPunteggio(punteggioEntity);
                 punteggioSquadra.setTorneo(punteggioEntity.getTorneo());
                 punteggioSquadra.setTotale(punteggioFinale);
 
-                Optional<Squadra> squadraOptional = squadraRepository.findById(dto.getIdSquadra());
                 punteggioSquadra.setSquadra(squadraOptional.get());
 
                 PunteggioSquadra savedPunteggioSquadra = punteggioSquadraRepository.save(punteggioSquadra);
@@ -72,7 +83,6 @@ public class PunteggioService {
                 punteggioSquadraDettaglio.setPunteggioSquadra(savedPunteggioSquadra);
 
                 punteggioSquadraDettaglioRepository.save(punteggioSquadraDettaglio);
-                return response;
             } else {
                 PunteggioSquadra punteggioSquadra = new PunteggioSquadra();
 
@@ -181,7 +191,6 @@ public class PunteggioService {
                     punteggioSquadra.setMinImpiegati(dto.getMinutiImpiegati());
                 }
 
-                Optional<Squadra> squadraOptional = squadraRepository.findById(dto.getIdSquadra());
                 punteggioSquadra.setSquadra(squadraOptional.get());
 
                 PunteggioSquadra savedPunteggioSquadra = punteggioSquadraRepository.save(punteggioSquadra);
@@ -193,8 +202,21 @@ public class PunteggioService {
                     }
                 }
 
-                return response;
             }
+
+            Classifica classifica = classificaRepository.findBySquadra_id(dto.getIdSquadra());
+            if (classifica != null) {
+                classifica.setPunteggio(classifica.getPunteggio() + punteggioFinale);
+                classificaRepository.save(classifica);
+            } else {
+                classifica = new Classifica();
+                classifica.setTorneo(punteggioEntity.getTorneo());
+                classifica.setSquadra(squadraOptional.get());
+                classifica.setDataInserimento(LocalDateTime.now());
+                classifica.setPunteggio(punteggioFinale);
+                classificaRepository.save(classifica);
+            }
+            return response;
 
         } else {
             throw new RuntimeException("E stato gia salvato un punteggio per questa squadra in questo torneo");

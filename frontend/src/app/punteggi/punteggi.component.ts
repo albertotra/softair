@@ -33,14 +33,11 @@ export class PunteggiComponent implements OnInit{
   }
 
   caricaPunteggi(idTorneo: number, idSquadra: number): any {
-
-    this.service.getObiettiviByIdTorneo(idTorneo).subscribe({
+    this.service.getObiettiviByIdTorneo(idTorneo, idSquadra).subscribe({
       next: (result) => {
         this.obiettivi = result;
       }
     });
-
-    console.log(idTorneo, idSquadra);
   } 
 
   caricaSquadra(): void {

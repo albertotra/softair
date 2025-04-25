@@ -20,5 +20,9 @@ export const routes: Routes = [
     {
         path: 'calcolo-punteggi/:idPunteggio/:idSquadra/:idObiettivo',
         loadComponent: () => import('./calcolo-punteggi/calcolo-punteggi.component').then(m => m.CalcoloPunteggiComponent)
+    },
+    {
+        path: 'classifica/:idTorneo',
+        loadComponent: () => import('./classifica/classifica.component').then(m => m.ClassificaComponent)
     }
 ];

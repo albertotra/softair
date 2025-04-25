@@ -1,0 +1,23 @@
+<h2>Classifica del Torneo <span class="text-danger">{{torneo.nome}}</span></h2>
+<h4>Organizzato da <span class="text-danger">{{torneo.squadraOrganizzatrice}}</span></h4>
+<div class="row mt-3">
+    <button type="button" class="btn btn-secondary" (click)="generaPdfClassifica()">Genera PDF classifica</button>
+</div>
+<table class="table table-dark table-borderless border-secondary mt-3" id="classifica">
+    <thead class="thead">
+        <tr class="border-secondary">
+            <th>Posizione</th>
+            <th>Nome squadra</th>
+            <th>Totale punti</th>
+            <th>Dettaglio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let posizione of classifica; let i = index" class="border-top border-secondary">
+            <td>{{ i + 1 }}</td>
+            <td>{{ posizione.squadra.nome}}</td>
+            <td>{{ posizione.punteggio }}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

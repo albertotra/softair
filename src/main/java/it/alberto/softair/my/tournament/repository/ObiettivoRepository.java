@@ -11,4 +11,6 @@ public interface ObiettivoRepository extends JpaRepository<Obiettivo, Integer> {
     List<Obiettivo> findByFaseE(Boolean faseE);
 
     List<Obiettivo> findByIdTorneo(Integer idTorneo);
+
+    Integer countByIdTorneo(Integer idTorneo);
 }

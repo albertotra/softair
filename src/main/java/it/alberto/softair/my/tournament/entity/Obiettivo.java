@@ -38,4 +38,10 @@ public class Obiettivo {
     @OneToMany(mappedBy = "obiettivo")
     @JsonManagedReference
     private List<Punteggio> punteggi;
+
+    @Transient
+    private boolean punteggioCalcolato;
+
+    @Transient
+    private Integer punteggio;
 }

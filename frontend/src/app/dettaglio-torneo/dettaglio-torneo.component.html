@@ -1,3 +1,6 @@
+<!-- <a [routerLink]="['/classifica', torneoId]" class="btn btn-secondary">
+    Vai alla Classifica
+</a> -->
 <table class="table table-dark table-borderless border-secondary">
     <thead class="thead">
         <tr class="border-secondary">
@@ -6,6 +9,7 @@
             <th>Canale Radio</th>
             <th>Ora test ASG</th>
             <th>Ora infiltrazione</th>
+            <th>Obiettivi completati</th>
             <th>Azioni</th>
         </tr>
     </thead>
@@ -16,9 +20,28 @@
             <td>{{ torneoSquadra.radioCh }}</td>
             <td>{{ torneoSquadra.oraTestAsg }}</td>
             <td>{{ torneoSquadra.oraIncursione }}</td>
+            <td [ngSwitch]="true">
+                <span *ngSwitchCase="torneoSquadra.obiettiviCompletati === 0" class="text-danger">
+                    {{ torneoSquadra.obiettiviCompletati }}/{{ torneoSquadra.obiettiviTotali }}
+                </span>
+
+                <span *ngSwitchCase="torneoSquadra.obiettiviCompletati < torneoSquadra.obiettiviTotali && torneoSquadra.obiettiviCompletati > 0"
+                    class="text-warning">
+                    {{ torneoSquadra.obiettiviCompletati }}/{{ torneoSquadra.obiettiviTotali }}
+                </span>
+
+                <span *ngSwitchCase="torneoSquadra.obiettiviCompletati === torneoSquadra.obiettiviTotali"
+                    class="text-success">
+                    {{ torneoSquadra.obiettiviCompletati }}/{{ torneoSquadra.obiettiviTotali }}
+                </span>
+
+                <span *ngSwitchDefault>
+                    {{ torneoSquadra.obiettiviCompletati }}/{{ torneoSquadra.obiettiviTotali }}
+                </span>
+            </td>
             <td>
-                <a [routerLink]="['/punteggi', torneoSquadra.idTorneo, torneoSquadra.idSquadra]" class="btn btn-outline-secondary" ngbTooltip="Punteggi squadra"
-                    placement="bottom">
+                <a [routerLink]="['/punteggi', torneoSquadra.idTorneo, torneoSquadra.idSquadra]"
+                    class="btn btn-outline-secondary" ngbTooltip="Punteggi squadra" placement="bottom">
                     <i class="fas fa-chevron-right"></i>
                 </a>
             </td>

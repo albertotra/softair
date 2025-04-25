@@ -33,7 +33,8 @@ export class CalcoloPunteggiComponent implements OnInit {
     { value: 'INTERFERENZA_ARBITRALE', label: 'Interferenza arbitrale' },
     { value: 'COMPORTAMENTO_ANTISPORTIVO', label: 'Comportamento antisportivo' },
     { value: 'ASG_OVERJOULE', label: 'ASG overjoule' },
-    { value: 'MARCATURA_ASG_ASSENTE', label: 'Marcatura ASG assente' }
+    { value: 'MARCATURA_ASG_ASSENTE', label: 'Marcatura ASG assente' },
+    { value: 'ALTRO', label: 'Altra penalitá' }
   ];
 
   constructor(
@@ -163,7 +164,6 @@ export class CalcoloPunteggiComponent implements OnInit {
       });
     } else {
       this.markFormGroupTouched(this.form);
-      console.log('Form non valido');
     }
   }
   

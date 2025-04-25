@@ -23,9 +23,9 @@ public class ObiettivoController {
         return new ResponseEntity<>(obiettivi, HttpStatus.OK);
     }
 
-    @GetMapping("/torneo/{idTorneo}")
-    public ResponseEntity<List<Obiettivo>> findByIdTorneo(@PathVariable Integer idTorneo) {
-        List<Obiettivo> obiettivi = obiettivoService.findByIdTorneo(idTorneo);
+    @GetMapping("/torneo/{idTorneo}/{idSquadra}")
+    public ResponseEntity<List<Obiettivo>> findByIdTorneo(@PathVariable Integer idTorneo, @PathVariable Integer idSquadra) {
+        List<Obiettivo> obiettivi = obiettivoService.findByIdTorneo(idTorneo, idSquadra);
         return new ResponseEntity<>(obiettivi, HttpStatus.OK);
     }
 

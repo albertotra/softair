@@ -52,10 +52,10 @@
       id="numeroRibelli"
       formControlName="numeroRibelli"
       min="0"
-      max="12"
+      max="{{punteggio.numeroRibelli}}"
     />
     <div *ngIf="form.get('numeroRibelli')?.invalid && form.get('numeroRibelli')?.touched" class="text-danger mt-1">
-      Inserisci un valore tra 0 e 12 (obbligatorio).
+      Inserisci un valore tra 0 e {{punteggio.numeroRibelli}} (obbligatorio).
     </div>
   </div>
   
@@ -67,10 +67,10 @@
       id="numeroDifensori"
       formControlName="numeroDifensori"
       min="0"
-      max="5"
+      max="{{punteggio.numeroDifensori}}"
     />
     <div *ngIf="form.get('numeroDifensori')?.invalid && form.get('numeroDifensori')?.touched" class="text-danger mt-1">
-      Inserisci un valore tra 0 e 5 (obbligatorio).
+      Inserisci un valore tra 0 e {{punteggio.numeroDifensori}} (obbligatorio).
     </div>
   </div>
   
@@ -82,10 +82,10 @@
       id="numeroCivili"
       formControlName="numeroCivili"
       min="0"
-      max="5"
+      max="{{punteggio.numeroCivili}}"
     />
     <div *ngIf="form.get('numeroCivili')?.invalid && form.get('numeroCivili')?.touched" class="text-danger mt-1">
-      Inserisci un valore tra 0 e 5 (obbligatorio).
+      Inserisci un valore tra 0 e {{punteggio.numeroCivili}} (obbligatorio).
     </div>
   </div>
   

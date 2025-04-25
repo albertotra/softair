@@ -16,4 +16,6 @@ public class DettaglioTorneoSquadraDto {
     private String radioCh;
     private LocalDateTime oraTestAsg;
     private LocalDateTime oraIncursione;
+    private Integer obiettiviCompletati;
+    private Integer obiettiviTotali;
 }

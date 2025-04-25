@@ -12,6 +12,7 @@ export class ApiService {
   private obiettivoUrl = this.baseUrl + '/obiettivo';
   private punteggioUrl = this.baseUrl + '/punteggio';
   private squadraUrl = this.baseUrl + '/squadra';
+  private classificaUrl = this.baseUrl + '/classifica';
   constructor(private http: HttpClient) { }
 
   getAllTornei(): Observable<any> {
@@ -22,8 +23,8 @@ export class ApiService {
     return this.http.get<any[]>(`${this.torneoSquadraUrl}/${idTorneo}`);
   }
 
-  getObiettiviByIdTorneo(idTorneo: number): Observable<any[]>{
-    return this.http.get<any[]>(`${this.obiettivoUrl}/torneo/${idTorneo}`);
+  getObiettiviByIdTorneo(idTorneo: number, idSquadra: number): Observable<any[]>{
+    return this.http.get<any[]>(`${this.obiettivoUrl}/torneo/${idTorneo}/${idSquadra}`);
   }
 
   getPunteggioByIdPunteggio(idPunteggio: number): Observable<any>{
@@ -40,6 +41,18 @@ export class ApiService {
 
   salvaPunteggio(obj: any): Observable<any> {
     return this.http.post(`${this.punteggioUrl}/salva`, obj);
+  }
+
+  getTorneoById(idTorneo: number): Observable<any> {
+    return this.http.get(`${this.torneoUrl}/${idTorneo}`);
+  }
+
+  // calcolaClassifica(idTorneo: number): Observable<any> {
+  //   return this.http.post(`${this.classificaUrl}/calcola/${idTorneo}`);
+  // }
+
+  getClassificaByIdTorneo(idTorneo: number): Observable<any> {
+    return this.http.get(`${this.classificaUrl}/${idTorneo}`);
   }
   
 }

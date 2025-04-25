@@ -17,9 +17,9 @@
             <td>{{ obiettivo.nome}}</td>
             <td>{{ obiettivo.canaleComunicazioni }}</td>
             <td>{{ obiettivo.tipologia }} <span *ngIf="obiettivo.faseE"> + E</span></td>
-            <td>{{ obiettivo.punteggi[0].id }}</td>
+            <td>{{ obiettivo.punteggio }}</td>
             <td>
-                <a [routerLink]="['/calcolo-punteggi', obiettivo.punteggi[0].id, idSquadra, obiettivo.id]" class="btn btn-outline-secondary" ngbTooltip="Punteggi squadra"
+                <a *ngIf="!obiettivo.punteggioCalcolato" [routerLink]="['/calcolo-punteggi', obiettivo.punteggi[0].id, idSquadra, obiettivo.id]" class="btn btn-outline-secondary" ngbTooltip="Punteggi squadra"
                     placement="bottom">
                     <i class="fas fa-chevron-right"></i>
                 </a>
