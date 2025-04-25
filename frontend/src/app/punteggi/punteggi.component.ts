@@ -14,6 +14,7 @@ import { RouterLink } from '@angular/router';
 export class PunteggiComponent implements OnInit{
   idTorneo: number = 0;
   idSquadra: number = 0;
+  squadra: any = {};
 
   obiettivi: any[] = [];
 
@@ -27,6 +28,7 @@ export class PunteggiComponent implements OnInit{
       this.idTorneo = +params['idTorneo'];
       this.idSquadra = +params['idSquadra'];
       this.caricaPunteggi(this.idTorneo, this.idSquadra);
+      this.caricaSquadra();
     });
   }
 
@@ -40,5 +42,13 @@ export class PunteggiComponent implements OnInit{
 
     console.log(idTorneo, idSquadra);
   } 
+
+  caricaSquadra(): void {
+    this.service.getSquadraById(this.idSquadra).subscribe({
+      next: (result) => {
+        this.squadra = result;
+      }
+    });
+  }
 
 }

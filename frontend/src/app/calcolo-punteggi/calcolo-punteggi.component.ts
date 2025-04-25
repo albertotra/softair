@@ -26,9 +26,9 @@ export class CalcoloPunteggiComponent implements OnInit {
 
   // Opzioni per la select
   options = [
-    { value: 'OPERATORE_SQUALIFICATO', label: 'Operatore squalificato' },
     { value: 'FASCIA_NON_ESPOSTA', label: 'Fascia non esposta' },
-    { value: 'OPERATORE_NON_DICHIARATO', label: 'Operatore non dichiarato' },
+    { value: 'OPERATORE_NON_DICHIARATO_1', label: 'Operatore non dichiarato 1' },
+    { value: 'OPERATORE_NON_DICHIARATO_2', label: 'Operatore non dichiarato 2' },
     { value: 'INTERFERENZA_ARBITRALE', label: 'Interferenza arbitrale' },
     { value: 'COMPORTAMENTO_ANTISPORTIVO', label: 'Comportamento antisportivo' },
     { value: 'ASG_OVERJOULE', label: 'ASG overjoule' },
@@ -53,6 +53,9 @@ export class CalcoloPunteggiComponent implements OnInit {
 
     // Inizializzazione del form unificato
     this.form = this.fb.group({
+      idObiettivo: this.idObiettivo,
+      idSquadra: this.idSquadra,
+      idPunteggio: this.idPunteggio,
       inizioObj: [''],
       fineObj: [''],
       minutiImpiegati: [null, [Validators.required, Validators.min(1), Validators.max(30)]],
@@ -133,17 +136,25 @@ export class CalcoloPunteggiComponent implements OnInit {
     this.penalita.removeAt(index);
   }
 
-  // Metodo onSubmit per gestire l'invio di tutto il form
   onSubmit(): void {
     if (this.form.valid) {
-      console.log('Form completo:', this.form.value);
-      // Qui puoi aggiungere la logica per l'invio dei dati al server
+      const formValue = this.form.value;
+  
+      this.service.salvaPunteggio(formValue).subscribe({
+        next: (res) => {
+          console.log('Punteggio salvato con successo', res);
+          // magari aggiungi un messaggio di successo o reindirizzamento
+        },
+        error: (err) => {
+          console.error('Errore durante il salvataggio del punteggio', err);
+        }
+      });
     } else {
-      // Marca tutti i campi come touched per mostrare gli errori di validazione
       this.markFormGroupTouched(this.form);
       console.log('Form non valido');
     }
   }
+  
   
   // Utility per marcare tutti i controlli come touched
   markFormGroupTouched(formGroup: FormGroup) {

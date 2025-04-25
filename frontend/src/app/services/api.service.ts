@@ -37,5 +37,9 @@ export class ApiService {
   getSquadraById(id: number): Observable<any[]>{
     return this.http.get<any[]>(`${this.squadraUrl}/${id}`);
   }
+
+  salvaPunteggio(obj: any) {
+    return this.http.post(`${this.punteggioUrl}/salva`, obj);
+  }
   
 }
