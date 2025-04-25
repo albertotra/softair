@@ -2,6 +2,7 @@ package it.alberto.softair.my.tournament.controller;
 
 import it.alberto.softair.my.tournament.dto.DettaglioTorneoSquadraDto;
 import it.alberto.softair.my.tournament.dto.PunteggioInputDto;
+import it.alberto.softair.my.tournament.dto.SalvaPunteggioResponseDto;
 import it.alberto.softair.my.tournament.entity.Obiettivo;
 import it.alberto.softair.my.tournament.entity.Punteggio;
 import it.alberto.softair.my.tournament.entity.PunteggioE;
@@ -29,8 +30,8 @@ public class PunteggioController {
     }
 
     @PostMapping("/salva")
-    public ResponseEntity<?> salvaPunteggio(@RequestBody PunteggioInputDto dto) {
-        punteggioService.salvaPunteggio(dto);
-        return ResponseEntity.ok("Punteggio salvato!");
+    public ResponseEntity<SalvaPunteggioResponseDto> salvaPunteggio(@RequestBody PunteggioInputDto dto) {
+        SalvaPunteggioResponseDto response = punteggioService.salvaPunteggio(dto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

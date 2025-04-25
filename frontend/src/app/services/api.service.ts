@@ -38,7 +38,7 @@ export class ApiService {
     return this.http.get<any[]>(`${this.squadraUrl}/${id}`);
   }
 
-  salvaPunteggio(obj: any) {
+  salvaPunteggio(obj: any): Observable<any> {
     return this.http.post(`${this.punteggioUrl}/salva`, obj);
   }
   

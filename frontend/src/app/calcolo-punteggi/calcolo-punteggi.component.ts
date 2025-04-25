@@ -5,6 +5,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormArray, FormBuilder, FormControl, FormsModule, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calcolo-punteggi',
@@ -38,7 +39,8 @@ export class CalcoloPunteggiComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private service: ApiService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -143,10 +145,20 @@ export class CalcoloPunteggiComponent implements OnInit {
       this.service.salvaPunteggio(formValue).subscribe({
         next: (res) => {
           console.log('Punteggio salvato con successo', res);
-          // magari aggiungi un messaggio di successo o reindirizzamento
+  
+          // Visualizza un messaggio di successo (puoi usare un toasty, snackbar, o simile)
+          alert('Punteggio salvato con successo!');
+  
+          // Ottieni idTorneo e idSquadra dalla risposta (o dal form, se li hai)
+          const idTorneo = res.idTorneo;  // Assicurati che la risposta contenga questi valori
+          const idSquadra = res.idSquadra;
+  
+          // Reindirizza alla nuova route con idTorneo e idSquadra
+          this.router.navigate([`/punteggi/${idTorneo}/${idSquadra}`]);
         },
         error: (err) => {
           console.error('Errore durante il salvataggio del punteggio', err);
+          alert('Si è verificato un errore durante il salvataggio del punteggio. Riprova!');
         }
       });
     } else {
@@ -154,6 +166,7 @@ export class CalcoloPunteggiComponent implements OnInit {
       console.log('Form non valido');
     }
   }
+  
   
   
   // Utility per marcare tutti i controlli come touched

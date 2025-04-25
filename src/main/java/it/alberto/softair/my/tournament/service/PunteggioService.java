@@ -3,6 +3,7 @@ package it.alberto.softair.my.tournament.service;
 import it.alberto.softair.my.tournament.dto.PenalitaDto;
 import it.alberto.softair.my.tournament.dto.PunteggioEInputDto;
 import it.alberto.softair.my.tournament.dto.PunteggioInputDto;
+import it.alberto.softair.my.tournament.dto.SalvaPunteggioResponseDto;
 import it.alberto.softair.my.tournament.entity.*;
 import it.alberto.softair.my.tournament.enumeration.InfrazioneEnum;
 import it.alberto.softair.my.tournament.repository.*;
@@ -39,39 +40,39 @@ public class PunteggioService {
         return punteggio.orElse(null);
     }
 
-    public void salvaPunteggio(PunteggioInputDto dto) {
+    public SalvaPunteggioResponseDto salvaPunteggio(PunteggioInputDto dto) {
+        SalvaPunteggioResponseDto response = new SalvaPunteggioResponseDto();
         Optional<Punteggio> punteggio = punteggioRepository.findById(dto.getIdPunteggio());
         PunteggioSquadra punteggioSquadraSaved = punteggioSquadraRepository.findBySquadra_idAndTorneo_idAndPunteggio_id(dto.getIdSquadra(), punteggio.get().getTorneo().getId(), dto.getIdPunteggio());
         Punteggio punteggioEntity = punteggio.get();
+        response.setIdSquadra(dto.getIdSquadra());
+        response.setIdTorneo(punteggio.get().getTorneo().getId());
 
         if (punteggioSquadraSaved == null) {
             Integer punteggioFinale = 0;
             if (dto.isFuoriFinestra()) {
-                if (dto.getIdPunteggio() != null) {
-                    List<PunteggioE> punteggioEList = punteggioEntity.getPunteggiE();
-                    for (PunteggioE punteggioE : punteggioEList) {
-                        punteggioFinale -= punteggioE.getValore();
-                    }
-
-                    PunteggioSquadra punteggioSquadra = new PunteggioSquadra();
-                    punteggioSquadra.setPunteggio(punteggioEntity);
-                    punteggioSquadra.setTorneo(punteggioEntity.getTorneo());
-                    punteggioSquadra.setTotale(punteggioFinale);
-
-                    Optional<Squadra> squadraOptional = squadraRepository.findById(dto.getIdSquadra());
-                    punteggioSquadra.setSquadra(squadraOptional.get());
-
-                    PunteggioSquadra savedPunteggioSquadra = punteggioSquadraRepository.save(punteggioSquadra);
-
-                    PunteggioSquadraDettaglio punteggioSquadraDettaglio = new PunteggioSquadraDettaglio();
-                    punteggioSquadraDettaglio.setChiave("FUORI_FINESTRA");
-                    punteggioSquadraDettaglio.setValore("SI");
-                    punteggioSquadraDettaglio.setPunteggioSquadra(savedPunteggioSquadra);
-
-                    punteggioSquadraDettaglioRepository.save(punteggioSquadraDettaglio);
-
+                List<PunteggioE> punteggioEList = punteggioEntity.getPunteggiE();
+                for (PunteggioE punteggioE : punteggioEList) {
+                    punteggioFinale -= punteggioE.getValore();
                 }
-                return;
+
+                PunteggioSquadra punteggioSquadra = new PunteggioSquadra();
+                punteggioSquadra.setPunteggio(punteggioEntity);
+                punteggioSquadra.setTorneo(punteggioEntity.getTorneo());
+                punteggioSquadra.setTotale(punteggioFinale);
+
+                Optional<Squadra> squadraOptional = squadraRepository.findById(dto.getIdSquadra());
+                punteggioSquadra.setSquadra(squadraOptional.get());
+
+                PunteggioSquadra savedPunteggioSquadra = punteggioSquadraRepository.save(punteggioSquadra);
+
+                PunteggioSquadraDettaglio punteggioSquadraDettaglio = new PunteggioSquadraDettaglio();
+                punteggioSquadraDettaglio.setChiave("FUORI_FINESTRA");
+                punteggioSquadraDettaglio.setValore("SI");
+                punteggioSquadraDettaglio.setPunteggioSquadra(savedPunteggioSquadra);
+
+                punteggioSquadraDettaglioRepository.save(punteggioSquadraDettaglio);
+                return response;
             } else {
                 PunteggioSquadra punteggioSquadra = new PunteggioSquadra();
 
@@ -139,7 +140,7 @@ public class PunteggioService {
                             punteggioSquadraDettaglio.setValore("SI");
                             punteggioSquadraDettaglioList.add(punteggioSquadraDettaglio);
                         } else {
-                            if (penalita.getInputValue() != null && penalita.getSelectValue()!=null && !penalita.getSelectValue().isEmpty()) {
+                            if (penalita.getInputValue() != null && penalita.getSelectValue() != null && !penalita.getSelectValue().isEmpty()) {
                                 try {
                                     punteggioFinale -= Integer.parseInt(penalita.getInputValue());
                                 } catch (NumberFormatException e) {
@@ -186,11 +187,13 @@ public class PunteggioService {
                 PunteggioSquadra savedPunteggioSquadra = punteggioSquadraRepository.save(punteggioSquadra);
 
                 if (!punteggioSquadraDettaglioList.isEmpty()) {
-                    for (PunteggioSquadraDettaglio punteggioSquadraDettaglio: punteggioSquadraDettaglioList) {
+                    for (PunteggioSquadraDettaglio punteggioSquadraDettaglio : punteggioSquadraDettaglioList) {
                         punteggioSquadraDettaglio.setPunteggioSquadra(savedPunteggioSquadra);
                         punteggioSquadraDettaglioRepository.save(punteggioSquadraDettaglio);
                     }
                 }
+
+                return response;
             }
 
         } else {
