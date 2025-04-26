@@ -12,4 +12,5 @@ public interface PunteggioSquadraRepository extends JpaRepository<PunteggioSquad
     PunteggioSquadra findBySquadra_idAndTorneo_idAndPunteggio_id(Integer idSquadra, Integer idTorneo, Integer idPunteggio);
     List<PunteggioSquadra> findByTorneo_id(Integer idTorneo);
     Integer countBySquadra_idAndTorneo_id(Integer idSquadra, Integer idTorneo);
+    List<PunteggioSquadra> findBySquadra_idAndTorneo_id(Integer idSquadra, Integer idTorneo);
 }

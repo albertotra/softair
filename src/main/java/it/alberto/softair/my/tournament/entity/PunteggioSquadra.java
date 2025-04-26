@@ -1,5 +1,8 @@
 package it.alberto.softair.my.tournament.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,17 +21,16 @@ public class PunteggioSquadra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // Relazione con Torneo
     @ManyToOne
     @JoinColumn(name = "id_torneo")
+    @JsonIgnore
     private Torneo torneo;
 
-    // Relazione con Squadra
     @ManyToOne
     @JoinColumn(name = "id_squadra")
+    @JsonBackReference
     private Squadra squadra;
 
-    // Relazione con Punteggio
     @ManyToOne
     @JoinColumn(name = "id_punteggio")
     private Punteggio punteggio;
@@ -53,6 +55,7 @@ public class PunteggioSquadra {
     private Integer minImpiegati;
 
     @OneToMany(mappedBy = "punteggioSquadra")
+    @JsonManagedReference
     private List<PunteggioSquadraDettaglio> dettagli;
 }
 

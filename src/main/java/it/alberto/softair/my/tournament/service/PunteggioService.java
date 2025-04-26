@@ -79,7 +79,7 @@ public class PunteggioService {
 
                 PunteggioSquadraDettaglio punteggioSquadraDettaglio = new PunteggioSquadraDettaglio();
                 punteggioSquadraDettaglio.setChiave("FUORI_FINESTRA");
-                punteggioSquadraDettaglio.setValore("SI");
+                punteggioSquadraDettaglio.setValore(punteggioFinale.toString());
                 punteggioSquadraDettaglio.setPunteggioSquadra(savedPunteggioSquadra);
 
                 punteggioSquadraDettaglioRepository.save(punteggioSquadraDettaglio);
@@ -91,7 +91,7 @@ public class PunteggioService {
                     punteggioFinale += dto.getNumeroRibelli() * 30;
                     PunteggioSquadraDettaglio punteggioSquadraDettaglio = new PunteggioSquadraDettaglio();
                     punteggioSquadraDettaglio.setChiave("RIBELLI_ELIMINATI");
-                    punteggioSquadraDettaglio.setValore(String.valueOf(dto.getNumeroRibelli()));
+                    punteggioSquadraDettaglio.setValore(String.valueOf(dto.getNumeroRibelli() * 30));
                     punteggioSquadraDettaglioList.add(punteggioSquadraDettaglio);
                 }
 
@@ -99,14 +99,14 @@ public class PunteggioService {
                     punteggioFinale += dto.getNumeroDifensori() * 40;
                     PunteggioSquadraDettaglio punteggioSquadraDettaglio = new PunteggioSquadraDettaglio();
                     punteggioSquadraDettaglio.setChiave("DIFENSORI_ELIMINATI");
-                    punteggioSquadraDettaglio.setValore(String.valueOf(dto.getNumeroDifensori()));
+                    punteggioSquadraDettaglio.setValore(String.valueOf(dto.getNumeroDifensori() * 40));
                     punteggioSquadraDettaglioList.add(punteggioSquadraDettaglio);
                 }
                 if (dto.getNumeroCivili() != null) {
                     punteggioFinale -= dto.getNumeroCivili() * 25;
                     PunteggioSquadraDettaglio punteggioSquadraDettaglio = new PunteggioSquadraDettaglio();
                     punteggioSquadraDettaglio.setChiave("CIVILI_ELIMINATI");
-                    punteggioSquadraDettaglio.setValore(String.valueOf(dto.getNumeroCivili()));
+                    punteggioSquadraDettaglio.setValore(String.valueOf(dto.getNumeroCivili() * 25));
                     punteggioSquadraDettaglioList.add(punteggioSquadraDettaglio);
                 }
 
@@ -116,7 +116,7 @@ public class PunteggioService {
                             punteggioFinale += punteggioE.getValore();
                             PunteggioSquadraDettaglio punteggioSquadraDettaglio = new PunteggioSquadraDettaglio();
                             punteggioSquadraDettaglio.setChiave("FASE_E");
-                            punteggioSquadraDettaglio.setValore(String.valueOf(punteggioE.getId()));
+                            punteggioSquadraDettaglio.setValore(punteggioE.getDescrizione() + "|" + punteggioE.getValore());
                             punteggioSquadraDettaglioList.add(punteggioSquadraDettaglio);
                         }
                     }
@@ -133,7 +133,7 @@ public class PunteggioService {
 
                             PunteggioSquadraDettaglio punteggioSquadraDettaglio = new PunteggioSquadraDettaglio();
                             punteggioSquadraDettaglio.setChiave("MINUTI_RISPARMIATI");
-                            punteggioSquadraDettaglio.setValore(String.valueOf(minutiRisparmiati));
+                            punteggioSquadraDettaglio.setValore(String.valueOf(minutiRisparmiati * 10));
                             punteggioSquadraDettaglioList.add(punteggioSquadraDettaglio);
                         }
                     }
@@ -147,7 +147,7 @@ public class PunteggioService {
                             punteggioFinale -= infrazione.getPunteggioNegativo();
                             PunteggioSquadraDettaglio punteggioSquadraDettaglio = new PunteggioSquadraDettaglio();
                             punteggioSquadraDettaglio.setChiave(infrazione.name());
-                            punteggioSquadraDettaglio.setValore("SI");
+                            punteggioSquadraDettaglio.setValore(String.valueOf(infrazione.getPunteggioNegativo()));
                             punteggioSquadraDettaglioList.add(punteggioSquadraDettaglio);
                         } else {
                             if (penalita.getInputValue() != null && penalita.getSelectValue() != null && !penalita.getSelectValue().isEmpty()) {
@@ -159,7 +159,7 @@ public class PunteggioService {
 
                                 PunteggioSquadraDettaglio punteggioSquadraDettaglio = new PunteggioSquadraDettaglio();
                                 punteggioSquadraDettaglio.setChiave(penalita.getSelectValue());
-                                punteggioSquadraDettaglio.setValore("SI");
+                                punteggioSquadraDettaglio.setValore(penalita.getInputValue());
                                 punteggioSquadraDettaglioList.add(punteggioSquadraDettaglio);
                             }
                         }

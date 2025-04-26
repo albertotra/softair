@@ -1,14 +1,16 @@
 package it.alberto.softair.my.tournament.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Entity
 @Table(name = "punteggio")
 @Getter
@@ -26,7 +28,6 @@ public class Punteggio {
 
     @ManyToOne
     @JoinColumn(name = "id_obiettivo")
-    @JsonIgnore
     private Obiettivo obiettivo;
 
     @Column(name = "ribelli")

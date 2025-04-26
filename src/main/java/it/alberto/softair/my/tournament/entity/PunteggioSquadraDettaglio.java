@@ -1,5 +1,6 @@
 package it.alberto.softair.my.tournament.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class PunteggioSquadraDettaglio {
 
     @ManyToOne
     @JoinColumn(name = "id_punteggio_squadra")
+    @JsonBackReference
     private PunteggioSquadra punteggioSquadra;
 
     @Column(name = "chiave")

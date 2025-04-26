@@ -17,7 +17,7 @@
             <td>{{ i + 1 }}</td>
             <td>{{ posizione.squadra.nome}}</td>
             <td>{{ posizione.punteggio }}</td>
-            <td></td>
+            <td><button type="button" class="btn btn-secondary" (click)="dettaglioPunteggio(posizione.squadra.id)">D</button></td>
         </tr>
     </tbody>
 </table>

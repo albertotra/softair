@@ -1,9 +1,11 @@
 package it.alberto.softair.my.tournament.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,4 +22,7 @@ public class Squadra {
 
     private String comitato;
 
+    @OneToMany(mappedBy = "squadra")
+    @JsonManagedReference
+    private List<PunteggioSquadra> punteggioSquadra;
 }
