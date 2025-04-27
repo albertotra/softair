@@ -128,7 +128,26 @@ public class PunteggioService {
 
                     if (minutiRisparmiati > 0) {
                         boolean fasiECompletate = dto.getPunteggiE().stream().allMatch(PunteggioEInputDto::isSelezionato);
-                        if (fasiECompletate) {
+                        boolean allRibelli = false;
+                        boolean allDifensori = false;
+
+                        if(punteggioEntity.getRibelli()) {
+                            if(Objects.equals(dto.getNumeroRibelli(), punteggioEntity.getNumeroRibelli())) {
+                                allRibelli = true;
+                            }
+                        } else {
+                            allRibelli = true;
+                        }
+
+                        if(punteggioEntity.getDifensori()) {
+                            if(Objects.equals(dto.getNumeroDifensori(), punteggioEntity.getNumeroDifensori())) {
+                                allDifensori = true;
+                            }
+                        } else {
+                            allDifensori = true;
+                        }
+
+                        if (fasiECompletate && allRibelli && allDifensori) {
                             punteggioFinale += minutiRisparmiati * 10;
 
                             PunteggioSquadraDettaglio punteggioSquadraDettaglio = new PunteggioSquadraDettaglio();

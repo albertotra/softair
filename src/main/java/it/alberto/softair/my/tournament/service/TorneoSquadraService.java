@@ -54,7 +54,7 @@ public class TorneoSquadraService {
         dto.setRadioCh(torneoSquadraDto.getRadioCh());
         dto.setOraTestAsg(torneoSquadraDto.getOraTestAsg());
         dto.setOraIncursione(torneoSquadraDto.getOraIncursione());
-        dto.setNomeSquadra(squadraRepository.findById(torneoSquadraDto.getId()).get().getNome());
+        dto.setNomeSquadra(squadraRepository.findById(torneoSquadraDto.getIdSquadra()).get().getNome());
         dto.setObiettiviCompletati(punteggioSquadraRepository.countBySquadra_idAndTorneo_id(dto.getIdSquadra(), dto.getIdTorneo()));
         dto.setObiettiviTotali(obiettivoRepository.countByIdTorneo(torneoSquadraDto.getIdTorneo()));
         return dto;

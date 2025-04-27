@@ -1,7 +1,10 @@
 <h2>Classifica del Torneo <span class="text-danger">{{torneo.nome}}</span></h2>
 <h4>Organizzato da <span class="text-danger">{{torneo.squadraOrganizzatrice}}</span></h4>
 <div class="row mt-3">
-    <button type="button" class="btn btn-secondary" (click)="generaPdfClassifica()">Genera PDF classifica</button>
+    <div class="btn-group">
+        <button type="button" class="btn btn-secondary" (click)="generaPdfClassifica()">Scarica classifica</button>
+        <button type="button" class="btn btn-secondary" (click)="generaPdfClassificaDettaglio()">Scarica classifica con punteggi</button>
+    </div>
 </div>
 <table class="table table-dark table-borderless border-secondary mt-3" id="classifica">
     <thead class="thead">
@@ -17,7 +20,7 @@
             <td>{{ i + 1 }}</td>
             <td>{{ posizione.squadra.nome}}</td>
             <td>{{ posizione.punteggio }}</td>
-            <td><button type="button" class="btn btn-secondary" (click)="dettaglioPunteggio(posizione.squadra.id)">D</button></td>
+            <td><button type="button" class="btn btn-secondary" (click)="dettaglioPunteggio(posizione.squadra.id)"><i class="fas fa-download"></i></button></td>
         </tr>
     </tbody>
 </table>
